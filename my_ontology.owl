@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://example.org/onto.owl"
+         xmlns="http://example.org/onto.owl#">
+
+<owl:Ontology rdf:about="http://example.org/onto.owl"/>
+
+<owl:ObjectProperty rdf:about="#Eats">
+  <rdfs:domain rdf:resource="#Animal"/>
+  <rdfs:range rdf:resource="#Plant"/>
+</owl:ObjectProperty>
+
+<owl:Class rdf:about="#Animal">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Plant">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#Rabbit">
+  <rdf:type rdf:resource="#Animal"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Carrot">
+  <rdf:type rdf:resource="#Plant"/>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
