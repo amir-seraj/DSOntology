@@ -1,14 +1,13 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
+# from SPARQLWrapper import SPARQLWrapper, JSON
 
 app = Flask(__name__)
 
-# Set up MongoDB connection
 client = MongoClient('mongodb+srv://test:771377@cluster0.06rut.mongodb.net/')
 db = client['test']
 collection = db['music']
 
-# Define the base IRI for your ontology
 ONTOLOGY_IRI = 'http://example.com/ontology/'
 
 # Model
@@ -18,7 +17,6 @@ class Entity:
         self.description = description
 
     def to_json_ld(self):
-        # Return the data in JSON-LD format
         return {
             "@context": ONTOLOGY_IRI,
             "@type": "MusicEntity",
@@ -28,7 +26,6 @@ class Entity:
 
 @app.route('/ontology', methods=['GET'])
 def get_ontology():
-    # Serve the ontology definition (this should be replaced with the actual ontology content)
     ontology_definition = {
         "@context": {
             "@vocab": ONTOLOGY_IRI
@@ -48,7 +45,6 @@ def get_ontology():
             "@type": "rdf:Property",
             "rdfs:comment": "A brief description of the music entity."
         }
-        # Add more properties and classes as needed
     }
     return jsonify(ontology_definition)
 
@@ -65,6 +61,24 @@ def create_entity():
         app.logger.error(f"Request data: {request.data}")
         app.logger.error(f"Request headers: {request.headers}")
         return jsonify({"status": "error", "message": str(e)}), 500
+
+# # Set up your SPARQL endpoint
+# sparql = SPARQLWrapper("your_sparql_endpoint_url")
+
+# @app.route('/sparql', methods=['GET'])
+# def query_sparql():
+#     # Get the SPARQL query from request arguments
+#     query = request.args.get('query', '')
+#     sparql.setQuery(query)
+#     sparql.setReturnFormat(JSON)
+    
+#     try:
+#         # Execute the query and convert the result to JSON
+#         results = sparql.query().convert()
+#         # Return the results as JSON
+#         return jsonify(results)
+#     except Exception as e:
+#         return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)
